@@ -22,8 +22,10 @@
       <nav class="navbar navbar-expand-md navbar-light bg-steel fixed-top">
         <div class="container">
           <a class="navbar-brand mr-4" href="/">Django Blog</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+          <button class="navbar-toggler" type="button" data-toggle="collapse"
+                  data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false"
+                  aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
@@ -43,7 +45,15 @@
     <main role="main" class="container">
       <div class="row">
         <div class="col-md-8">
-          {% block body_content %}{% endblock %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            {% block body_content %}{% endblock %}
         </div>
         <div class="col-md-4">
           <div class="content-section">
