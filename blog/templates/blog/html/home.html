@@ -1,18 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    {% if title %}
-        <title>Blog Home - {{ title }}</title>
-    {% else %}
-        <title>Blog Home</title>
-    {% endif %}
-</head>
-<body>
+{% extends "blog/html/base.html" %}
+
+{% block  body_content %}
     {% for post in posts %}
         <h2>{{ post.title }}</h2>
         <p>Post by {{ post.author }} on {{ post.created_on }}</p>
         <p>{{ post.content }}</p>
     {% endfor %}
-</body>
-</html>
+{% endblock body_content %}
