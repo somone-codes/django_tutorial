@@ -5,6 +5,7 @@ from django.http import HttpRequest
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
+
 def register(request: HttpRequest):
     if request.method == "POST":
         form = UserRegistrationForm(request.POST)
