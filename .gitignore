@@ -129,3 +129,6 @@ cython_debug/
 
 # Pycharm
 .idea/
+
+# images/media
+media/
