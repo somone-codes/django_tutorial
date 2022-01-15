@@ -2,7 +2,7 @@ from .models import Post
 
 from django.shortcuts import render
 from django.http import HttpRequest
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 
 def about(request: HttpRequest):
@@ -17,3 +17,7 @@ class PostListView(ListView):
     context_object_name = "posts"
     template_name = "blog/html/home.html"
     ordering = ["-created_on"]
+
+
+class PostDetailView(DetailView):
+    model = Post
