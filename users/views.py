@@ -1,4 +1,4 @@
-from users.forms import UserRegistrationForm
+from users.forms import UserRegistrationForm, UserUpdationForm, ProfileUpdationForm
 
 from django.shortcuts import render, redirect
 from django.http import HttpRequest
@@ -19,4 +19,23 @@ def register(request: HttpRequest):
 
 @login_required
 def profile(request: HttpRequest):
-    return render(request, "users/html/profile.html")
+
+    if request.method == "POST":
+        user_form = UserUpdationForm(request.POST, instance=request.user)
+        profile_form = ProfileUpdationForm(request.POST, request.FILES, instance=request.user.profile)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, "Profile updated!")
+            return redirect("profile")
+
+    else:
+        user_form = UserUpdationForm(instance=request.user)
+        profile_form = ProfileUpdationForm(instance=request.user.profile)
+
+    context = {
+        "user_form": user_form,
+        "profile_form": profile_form
+    }
+    return render(request, "users/html/profile.html", context)
