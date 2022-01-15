@@ -3,7 +3,7 @@ from users.forms import UserRegistrationForm
 from django.shortcuts import render, redirect
 from django.http import HttpRequest
 from django.contrib import messages
-
+from django.contrib.auth.decorators import login_required
 
 def register(request: HttpRequest):
     if request.method == "POST":
@@ -16,5 +16,6 @@ def register(request: HttpRequest):
         return render(request, "users/html/register.html", {"form": UserRegistrationForm()})
 
 
+@login_required
 def profile(request: HttpRequest):
     return render(request, "users/html/profile.html")
