@@ -14,3 +14,7 @@ def register(request: HttpRequest):
             return redirect("login")
     else:
         return render(request, "users/html/register.html", {"form": UserRegistrationForm()})
+
+
+def profile(request: HttpRequest):
+    return render(request, "users/html/profile.html")
