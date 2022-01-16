@@ -4,6 +4,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpRequest
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.views.generic import DetailView
+from django.contrib.auth.models import User
 
 
 def register(request: HttpRequest):
@@ -39,3 +41,8 @@ def profile(request: HttpRequest):
         "profile_form": profile_form
     }
     return render(request, "users/html/profile.html", context)
+
+
+class UserProfileView(DetailView):
+    model = User
+    template_name = "users/html/user_profile_detail.html"

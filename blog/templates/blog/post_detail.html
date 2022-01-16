@@ -5,7 +5,7 @@
      <img class="rounded-circle account-img" src="{{ user.profile.picture.url }}" alt="Profile Picture">
       <div class="media-body">
         <div class="article-metadata">
-            <a class="mr-2" href="{% url 'profile' %}">{{ object.author }}</a>
+            <a class="mr-2" href="{% url 'user-profile-detail' object.author.profile.pk %}">{{ object.author }}</a>
             <small class="text-muted">{{ object.created_on|date:"F d, Y" }}</small>
             <div>
                 <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.pk %}">Update</a>

@@ -1,10 +1,10 @@
 from .models import Post
 
-from django.shortcuts import render
+from django.shortcuts import render, get_list_or_404
 from django.http import HttpRequest
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-
+from django.contrib.auth.models import User
 
 def about(request: HttpRequest):
     context = {
@@ -18,7 +18,21 @@ class PostListView(LoginRequiredMixin, ListView):
     context_object_name = "posts"
     template_name = "blog/html/home.html"
     ordering = ["-created_on"]
-    paginate_by = 2
+    paginate_by = 5
+
+
+class UserPostListView(LoginRequiredMixin, ListView):
+    model = Post
+    context_object_name = "posts"
+    template_name = "blog/html/user_posts.html"
+    ordering = ["-created_on"]
+    paginate_by = 5
+
+    def get_queryset(self):
+        print("000000000000000000000000000000000000000000000000000000")
+        user = get_list_or_404(User, username=self.kwargs.get("username"))
+        print(user)
+        return Post.objects.filter(author=user[0]).order_by("-created_on")
 
 
 class PostDetailView(LoginRequiredMixin, DetailView):
